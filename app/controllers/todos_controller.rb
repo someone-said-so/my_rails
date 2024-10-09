@@ -6,10 +6,14 @@ class TodosController < ApplicationController
     # erb
     # @hello = 'Hello World!'
 
-    todo = { id: 1, done: true, desc: "foo" }
-    render json: todo
+    todos = Todo.all
+    objects = todos.map { |todo| { id: todo.id, done: todo.done, desc: todo.desc } }
+    
+    object = objects
+    render json: object
   end
 
   def create
+    @todo = Todo.create(done: false, desc: "foo")
   end
 end
