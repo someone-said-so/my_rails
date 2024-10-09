@@ -22,3 +22,19 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+```ruby on rails
+$ docker compose exec web bash
+## サーバー起動
+$ bundle exec rails s -p 3000 -b '0.0.0.0'
+
+## マイグレーション
+$ rails db:create
+$ rails db:migrate
+```
+
+```mysql
+$ docker compose exec mysql bash
+$ mysql -u myuser -h 192.168.0.10 -p
+# 対話で.envの{MYSQL_PASSWORD}を入力する
+```
