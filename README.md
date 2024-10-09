@@ -29,7 +29,7 @@ $ docker compose exec web bash
 $ bundle exec rails s -p 3000 -b '0.0.0.0'
 
 ## マイグレーション
-$ rails db:create
+$ rails db:create # 初回のみ
 $ rails db:migrate
 ```
 
@@ -37,4 +37,14 @@ $ rails db:migrate
 $ docker compose exec mysql bash
 $ mysql -u myuser -h 192.168.0.10 -p
 # 対話で.envの{MYSQL_PASSWORD}を入力する
+```
+
+# コントローラー作成
+```
+$ rails generate controller Todos index create
+```
+
+# モデル作成
+```
+$ rails generate model Todos desc:string done:boolean
 ```
