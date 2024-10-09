@@ -1,10 +1,36 @@
 services:
   web:
     build: .
+    container_name: web_container
+    networks:
+      - backend
     tty: true
     # command: bundle exec rails s -p 3000 -b '0.0.0.0'
     volumes:
       - .:/myapp
     ports:
       - 3000:3000
-      
+
+  mysql:
+    build:
+      context: ./docker/mysql
+      dockerfile: Dockerfile
+    container_name: mysql_container
+    networks:
+      backend:
+        ipv4_address: 192.168.0.10
+    restart: always
+    platform: linux/amd64
+    env_file: ./docker/mysql/.env
+    ports: 
+      - 13306:3306
+    volumes:
+      - ./docker/mysql/settings/initdb.d:/docker-entrypoint-initdb.d
+      - ./docker/mysql/data:/var/lib/mysql
+
+networks:
+  backend:
+    ipam:
+     driver: default
+     config:
+       - subnet: 192.168.0.0/24
